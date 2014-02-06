@@ -35,7 +35,7 @@ public final class LectureJson {
                    }
                    else ajoutMinutesTeletravail(Integer.parseInt(document.getString("minutes")));
                }
-               if(RespectMinutesMiniBureau(cptMinutesJourBureau)) System.out.println("L'employé n'à travaillé le nombre d'heures minimal pour le jour"+i);
+               if(RespectMinutesMiniBureau(cptMinutesJourBureau)) System.out.println("L'employé n'à pas travaillé le nombre d'heures minimal pour le jour"+i);
             }
 
            for(int i=1; i<=2; i++){
