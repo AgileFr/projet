@@ -19,6 +19,5 @@ public abstract class Employe {
         return compteurMinutesTeletravail;
     }
     
-    public abstract void parler();
     public abstract void totalHeures();
 }

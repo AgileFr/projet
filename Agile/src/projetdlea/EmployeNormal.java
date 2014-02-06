@@ -7,10 +7,6 @@ public class EmployeNormal extends Employe {
     }
 
     
-    public void parler(){
-        System.out.println("Je suis un employe normal");
-    }
-    
     public void totalHeures(){
         if(super.getCompteurMinutesBureau() >= 2280 && super.getCompteurMinutesBureau() <= 2580) System.out.println("\nl'employe à travaillé le nombre d'heures minimal au bureau durant la semaine");
         if(super.getCompteurMinutesBureau()<2280) System.out.println("\nl'employe n'a pas travaillé le nombre d'heures minimal au bureau durant la semaine");

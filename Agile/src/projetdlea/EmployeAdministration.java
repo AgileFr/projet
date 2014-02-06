@@ -7,9 +7,6 @@ public class EmployeAdministration extends Employe{
         this.compteurMinutesTeletravail = compteurMinutesTeletravail;
     }
 
-    public void parler(){
-        System.out.println("je suis un employe d'administration");
-    }
     
     public void totalHeures(){
         if(super.getCompteurMinutesBureau() >= 2160 && super.getCompteurMinutesBureau() <= 2580) System.out.println("\nl'employe à travaillé le nombre d'heures minimal au bureau durant la semaine");

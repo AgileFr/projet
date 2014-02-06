@@ -50,12 +50,10 @@ public final class LectureJson {
            if(EmployeNormal()){
                employe =  new EmployeNormal(numeroEmploye, cptMinutesBureau);
                employe.totalHeures();
-               employe.parler();
            }
            else{
                 employe = new EmployeAdministration(numeroEmploye, cptMinutesBureau, cptMinutesTeletravail);
                 employe.totalHeures();
-                employe.parler();
            }
               
        }catch (IOException ex) {
