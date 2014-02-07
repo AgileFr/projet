@@ -22,7 +22,7 @@ public final class LectureJson {
            JSONObject root = (JSONObject) JSONSerializer.toJSON(jsonTxt);
            numeroEmploye = Integer.parseInt(root.getString("numero_employe"));
           
-                      int debut = 1, fin = 5;
+           int debut = 1, fin = 5;
            String jourSemaine = "jour";
            boolean jourDeLaSemaine = true;
            while(debut<=fin){
