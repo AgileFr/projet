@@ -22,30 +22,25 @@ public final class LectureJson {
            JSONObject root = (JSONObject) JSONSerializer.toJSON(jsonTxt);
            numeroEmploye = Integer.parseInt(root.getString("numero_employe"));
           
-           for(int i=1; i<=5; i++){
-               int cptMinutesJourBureau = 0;
-               JSONArray test = (JSONArray) JSONSerializer.toJSON(root.getString("jour"+i));
-               int docCount = test.size();
-               for(int j=0; j<docCount; j++){
+                      int debut = 1, fin = 5;
+           String jourSemaine = "jour";
+           boolean jourDeLaSemaine = true;
+           while(debut<=fin){
+                int cptMinutesJourBureau = 0;
+                JSONArray test = (JSONArray) JSONSerializer.toJSON(root.getString(jourSemaine+debut));
+                int docCount = test.size();
+                for(int j=0; j<docCount; j++){
                    JSONObject document = test.getJSONObject(j);
                    if(projetBureau(Integer.parseInt(document.getString("projet")))){
                        ajoutMinutesBureau(Integer.parseInt(document.getString("minutes")));
-                       cptMinutesJourBureau += Integer.parseInt(document.getString("minutes"));
+                       if(jourDeLaSemaine) cptMinutesJourBureau += Integer.parseInt(document.getString("minutes"));
                        
                    }
                    else ajoutMinutesTeletravail(Integer.parseInt(document.getString("minutes")));
                }
-               if(RespectMinutesMiniBureau(cptMinutesJourBureau)) System.out.println("L'employé n'à pas travaillé le nombre d'heures minimal pour le jour"+i);
-            }
-
-           for(int i=1; i<=2; i++){
-               JSONArray test = (JSONArray) JSONSerializer.toJSON(root.getString("weekend"+i));
-               int docCount = test.size();
-               for(int j=0; j<docCount; j++){
-                   JSONObject document = test.getJSONObject(j);
-                   if(projetBureau(Integer.parseInt(document.getString("projet")))) ajoutMinutesBureau(Integer.parseInt(document.getString("minutes")));
-                   else ajoutMinutesTeletravail(Integer.parseInt(document.getString("minutes")));
-               }
+               if(jourDeLaSemaine == true && RespectMinutesMiniBureau(cptMinutesJourBureau)) System.out.println("L'employé n'à travaillé le nombre d'heures minimal pour le jour"+debut);
+               if(debut == 5){debut = 1; fin = 2; jourSemaine="weekend"; jourDeLaSemaine = false;}
+               debut++;
            }
            if(EmployeNormal()){
                employe =  new EmployeNormal(numeroEmploye, cptMinutesBureau);
