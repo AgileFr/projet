@@ -12,6 +12,7 @@ import net.sf.json.JSONSerializer;
 public class ProjetDLEA {
     public static void main(String[] args) throws IOException {
             LectureJson lectureJson = new LectureJson(args[0]);
+            Probleme proleme = new Probleme(lectureJson.root());
             
     }
 }
