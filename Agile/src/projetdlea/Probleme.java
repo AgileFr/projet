@@ -24,7 +24,6 @@ public class Probleme {
     
     public Probleme(JSONObject root){
         numeroEmploye = Integer.parseInt(root.getString("numero_employe"));
-
         int debut = 1, fin = 5;
         String jourSemaine = "jour";
         boolean jourDeLaSemaine = true;
@@ -37,22 +36,12 @@ public class Probleme {
                 if(projetBureau(Integer.parseInt(document.getString("projet")))){
                     ajoutMinutesBureau(Integer.parseInt(document.getString("minutes")));
                     if(jourDeLaSemaine) cptMinutesJourBureau += Integer.parseInt(document.getString("minutes"));
-
                 }
                else ajoutMinutesTeletravail(Integer.parseInt(document.getString("minutes")));
            }
-           if(jourDeLaSemaine == true && RespectMinutesMiniBureau(cptMinutesJourBureau)) System.out.println("L'employé n'à travaillé le nombre d'heures minimal pour le jour"+debut);
+           if(jourDeLaSemaine == true && respectMinutesMiniBureau(cptMinutesJourBureau)) System.out.println("L'employé n'à travaillé le nombre d'heures minimal pour le jour"+debut);
            if(debut == 5){debut = 1; fin = 2; jourSemaine="weekend"; jourDeLaSemaine = false;}
            debut++;
-       }
-
-       if(EmployeNormal()){
-           employe =  new EmployeNormal(numeroEmploye, cptMinutesBureau);
-           employe.totalHeures();
-       }
-       else{
-            employe = new EmployeAdministration(numeroEmploye, cptMinutesBureau, cptMinutesTeletravail);
-            employe.totalHeures();
        }
     }
     
@@ -60,7 +49,7 @@ public class Probleme {
         return (numProjet <= 900);
     }
     
-    public boolean EmployeNormal(){
+    public boolean employeNormal(){
         return (numeroEmploye >= 1000);
     }
     
@@ -72,9 +61,20 @@ public class Probleme {
         cptMinutesTeletravail += heuresTeletravail;
     }
     
-    public boolean RespectMinutesMiniBureau(int minutes){
-        if(EmployeNormal() && minutes < 360) return true;
-        if(!EmployeNormal() && minutes < 240) return true;
+    public boolean respectMinutesMiniBureau(int minutes){
+        if(employeNormal() && minutes < 360) return true;
+        if(!employeNormal() && minutes < 240) return true;
         return false;
+    }
+    
+    public void totalesHeuresEmploye(){
+        if(employeNormal()){
+           employe =  new EmployeNormal(numeroEmploye, cptMinutesBureau);
+           employe.totalHeures();
+       }
+       else{
+            employe = new EmployeAdministration(numeroEmploye, cptMinutesBureau, cptMinutesTeletravail);
+            employe.totalHeures();
+       }
     }
 }
