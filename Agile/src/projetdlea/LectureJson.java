@@ -18,6 +18,7 @@ public final class LectureJson {
            jsonTxt = txtjs;
        }catch (IOException ex) {
            System.out.println("Erreur lors de l'ouverture du fichier");
+           System.exit(0);
        }
     }
    
