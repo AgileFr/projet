@@ -18,7 +18,7 @@ public class Sortie {
     public void writeJson (String resultat, String fichierSortie){
        
 	
-		File file = new File("src/Json/" + fichierSortie);
+		File file = new File(fichierSortie);
 
 		try {
 			if (!file.exists())
