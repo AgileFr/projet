@@ -15,10 +15,10 @@ import java.io.IOException;
  * @author Vincent
  */
 public class Sortie {
-    public void writeJson (String resultat){
-        String cheminDuFichier = "/Users/Vincent/NetBeansProject/Agile/src/Json/sortie.json";
+    public void writeJson (String resultat, String fichierSortie){
+       
 	
-		File file = new File(cheminDuFichier);
+		File file = new File("src/Json/" + fichierSortie);
 
 		try {
 			if (!file.exists())
@@ -29,7 +29,7 @@ public class Sortie {
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("Erreur: impossible de créer le fichier '"
-					+ cheminDuFichier + "'");
+					+ fichierSortie + "'");
 		}
     }
 }

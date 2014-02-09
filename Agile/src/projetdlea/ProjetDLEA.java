@@ -7,6 +7,6 @@ public class ProjetDLEA {
             LectureJson lectureJson = new LectureJson(args[0]);
             Probleme probleme = new Probleme(lectureJson.root());
             Sortie s = new Sortie ();
-            s.writeJson(probleme.totalesHeuresEmploye());
+            s.writeJson(probleme.totalesHeuresEmploye(), args[1]);
     }
 }
