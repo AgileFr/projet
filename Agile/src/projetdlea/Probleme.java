@@ -35,7 +35,7 @@ public class Probleme {
                 }
                else ajoutMinutesTeletravail(Integer.parseInt(document.getString("minutes")));
            }
-           if(jourDeLaSemaine == true && respectMinutesMiniBureau(cptMinutesJourBureau)) json += " \n \" L'employé n'à travaillé le nombre d'heures minimal pour le jour "+ debut + "\" ";
+           if(jourDeLaSemaine == true && respectMinutesMiniBureau(cptMinutesJourBureau)) json += " \n \" L'employé n'à travaillé le nombre d'heures minimal pour le jour "+ debut + "\", ";
            if(debut == 5){debut = 1; fin = 2; jourSemaine="weekend"; jourDeLaSemaine = false;}
            debut++;
        }
