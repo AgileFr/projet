@@ -1,10 +1,10 @@
 package projetdlea;
 
-public class EmployeNormal extends Employe {
+public class EmployeProduction extends Employe {
     
     private String json;
     
-    public EmployeNormal(int codeEmploye, int compteurMinutesBureau) {
+    public EmployeProduction(int codeEmploye, int compteurMinutesBureau) {
         super(codeEmploye, compteurMinutesBureau);
         json = "";
     }
