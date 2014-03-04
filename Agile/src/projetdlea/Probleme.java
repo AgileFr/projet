@@ -45,6 +45,14 @@ public class Probleme {
         return (numProjet <= 900);
     }
     
+    public boolean congeMaladie(int numProjet){
+        return (numProjet == 999);
+    }
+    
+    public boolean congeFerie(int numProjet){
+        return (numProjet == 998);
+    }
+    
     public boolean employeExploitation(){
         return (numeroEmploye >= 2000);
     }
@@ -65,6 +73,7 @@ public class Probleme {
         if(!employeExploitation() && !employeProduction() && minutes < 240) return true;
         return false;
     }
+    
     
     public String totalesHeuresEmploye(){
         if(employeExploitation()){
