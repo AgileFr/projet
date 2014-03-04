@@ -45,8 +45,11 @@ public class Probleme {
         return (numProjet <= 900);
     }
     
-    public boolean employeNormal(){
-        return (numeroEmploye >= 1000);
+    public boolean employeExploitation(){
+        return (numeroEmploye >= 2000);
+    }
+    public boolean employeProduction(){
+        return (numeroEmploye >= 1000  && numeroEmploye < 2000);
     }
     
     public void ajoutMinutesBureau(int heuresBureau){
@@ -58,16 +61,20 @@ public class Probleme {
     }
     
     public boolean respectMinutesMiniBureau(int minutes){
-        if(employeNormal() && minutes < 360) return true;
-        if(!employeNormal() && minutes < 240) return true;
+        if((employeExploitation() || employeProduction()) && minutes < 360) return true;
+        if(!employeExploitation() && !employeProduction() && minutes < 240) return true;
         return false;
     }
     
     public String totalesHeuresEmploye(){
-        if(employeNormal()){
-           employe =  new EmployeNormal(numeroEmploye, cptMinutesBureau);
+        if(employeExploitation()){
+           employe =  new EmployeExploitation(numeroEmploye, cptMinutesBureau);
            return json += employe.totalHeures();
        }
+       if(employeProduction()){
+           employe =  new EmployeProduction(numeroEmploye, cptMinutesBureau);
+           return json += employe.totalHeures();
+       } 
        else{
             employe = new EmployeAdministration(numeroEmploye, cptMinutesBureau, cptMinutesTeletravail);
             return json += employe.totalHeures();
