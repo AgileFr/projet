@@ -1,7 +1,9 @@
 [ 
- " L'employé a travaillé plus de 24 heures le 1",  
+ " L'employé a chargé 410 minutes au lieu de 420 lors d'un congé férié le jour 1",  
+ " L'employé a travaillé 45 minutes pour le projet 125 au bureau alors qu'il était en congé Ferie le jour 1",  
  " L'employé n'à travaillé le nombre d'heures minimal pour le jour 2",  
- " L'employé n'à travaillé le nombre d'heures minimal pour le jour 5", 
- " L'employé d'administration à travaillé le nombre d'heures minimal au bureau durant la semaine ",
+ " L'employé n'à travaillé le nombre d'heures minimal pour le jour 5",  
+ " L'employé a pris un congé Ferie le weekend", 
+ " L'employé d'administration n'a pas travaillé le nombre d'heures minimal  au bureau durant la semaine ",
  " L'employé d'administration a depassé le nombres d'heures au teletravail durant la semaine " 
 ]

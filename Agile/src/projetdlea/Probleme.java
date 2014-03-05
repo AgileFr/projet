@@ -26,6 +26,7 @@ public class Probleme {
         boolean jourDeLaSemaine = true;
         while(debut<=fin){
             boolean malade = false;
+            boolean congeFerie = false; 
             int cptMinutesJourBureau = 0;
             int cptMinutesJourTeletravail = 0;
             JSONArray test = (JSONArray) JSONSerializer.toJSON(root.getString(jourSemaine+debut));
@@ -36,19 +37,20 @@ public class Probleme {
                 minutes = Integer.parseInt(document.getString("minutes"));
                 if(projetBureau(numProjet)){
                      if (malade) json += " \n \" L'employé a travaillé " + minutes + " minutes pour le projet " + numProjet + " au bureau alors qu'il était en congé maladie le jour "+ debut + "\", ";
+                     if(congeFerie) json += " \n \" L'employé a travaillé " + minutes + " minutes pour le projet " + numProjet + " au bureau alors qu'il était en congé Ferie le jour "+ debut + "\", ";
                      else{
                         ajoutMinutesBureau(minutes);
                         if(jourDeLaSemaine) cptMinutesJourBureau += minutes;
                      }
                 }
-                else if (projetTeletravail(numProjet)){
+                if (projetTeletravail(numProjet)){
                     if (malade) json += " \n \" L'employé a travaillé en télétravail " + minutes + " minutes pour le projet " + numProjet + " alors qu'il était en congé maladie le jour "+ debut + "\", ";
                     else{
                         ajoutMinutesTeletravail(minutes);
                         cptMinutesJourTeletravail += minutes;
                     }
                 }
-                else if (congeMaladie(numProjet)){ 
+                if (congeMaladie(numProjet)){ 
                     if(jourDeLaSemaine){
                         malade = true;
                         if (minutes != 420){
@@ -59,9 +61,22 @@ public class Probleme {
                     }
                     else json += " \n \" L'employé a pris un congé maladie le "+ jourSemaine + "\", ";
                 }
+                
+                
+               if(congeFerie(numProjet)){
+                   if(jourDeLaSemaine){
+                        congeFerie = true;
+                        ajoutMinutesBureau(minutes);
+                        if(!respectMinutesCongeFerie(minutes)) json += " \n \" L'employé a chargé " + minutes + " minutes au lieu de 420 lors d'un congé férié le jour "+ debut + "\", ";  
+                   }
+                   else json += " \n \" L'employé a pris un congé Ferie le "+ jourSemaine + "\", ";
+                       
+                   
+                   
+               }
            }
            if(respectMaxJour(cptMinutesJourBureau+cptMinutesJourTeletravail)) json += " \n \" L'employé a travaillé plus de 24 heures le "+ debut + "\", ";
-           if(jourDeLaSemaine == true && respectMinutesMiniBureau(cptMinutesJourBureau)) json += " \n \" L'employé n'à travaillé le nombre d'heures minimal pour le jour "+ debut + "\", ";
+           if(!malade && !congeFerie && jourDeLaSemaine == true && respectMinutesMiniBureau(cptMinutesJourBureau)) json += " \n \" L'employé n'à travaillé le nombre d'heures minimal pour le jour "+ debut + "\", ";
            if(debut == 5){debut = 1; fin = 2; jourSemaine="weekend"; jourDeLaSemaine = false;}
            debut++;
        }
@@ -81,6 +96,10 @@ public class Probleme {
     
     public boolean congeFerie(int numProjet){
         return (numProjet == 998);
+    }
+    
+    public boolean respectMinutesCongeFerie(int minutes){
+        return minutes == 420;
     }
     
     public boolean employeExploitation(){
@@ -107,6 +126,7 @@ public class Probleme {
     public boolean respectMaxJour ( int minutes ){
         return minutes > 1440 ;
     }
+    
     
     
     public String totalesHeuresEmploye(){
