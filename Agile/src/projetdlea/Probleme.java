@@ -25,6 +25,7 @@ public class Probleme {
         boolean jourDeLaSemaine = true;
         while(debut<=fin){
             int cptMinutesJourBureau = 0;
+            int cptMinutesJourTeletravail = 0;
             JSONArray test = (JSONArray) JSONSerializer.toJSON(root.getString(jourSemaine+debut));
             int docCount = test.size();
             for(int j=0; j<docCount; j++){
@@ -33,8 +34,12 @@ public class Probleme {
                     ajoutMinutesBureau(Integer.parseInt(document.getString("minutes")));
                     if(jourDeLaSemaine) cptMinutesJourBureau += Integer.parseInt(document.getString("minutes"));
                 }
-               else ajoutMinutesTeletravail(Integer.parseInt(document.getString("minutes")));
+               else {
+                    ajoutMinutesTeletravail(Integer.parseInt(document.getString("minutes")));
+                    cptMinutesJourTeletravail += Integer.parseInt(document.getString("minutes"));
+                }
            }
+           if(jourDeLaSemaine == true && !respectMaxJour(cptMinutesJourBureau+cptMinutesJourTeletravail)) json += " \n \" L'employé a travaillé plus de 24 heures "+ debut + "\", ";
            if(jourDeLaSemaine == true && respectMinutesMiniBureau(cptMinutesJourBureau)) json += " \n \" L'employé n'à travaillé le nombre d'heures minimal pour le jour "+ debut + "\", ";
            if(debut == 5){debut = 1; fin = 2; jourSemaine="weekend"; jourDeLaSemaine = false;}
            debut++;
@@ -72,6 +77,11 @@ public class Probleme {
         if((employeExploitation() || employeProduction()) && minutes < 360) return true;
         if(!employeExploitation() && !employeProduction() && minutes < 240) return true;
         return false;
+    }
+    
+    public boolean respectMaxJour ( int minutes ){
+        if (minutes > 1440) return false;
+        return true;
     }
     
     
