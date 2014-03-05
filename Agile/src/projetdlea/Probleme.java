@@ -39,7 +39,7 @@ public class Probleme {
                     cptMinutesJourTeletravail += Integer.parseInt(document.getString("minutes"));
                 }
            }
-           if(jourDeLaSemaine == true && !respectMaxJour(cptMinutesJourBureau+cptMinutesJourTeletravail)) json += " \n \" L'employé a travaillé plus de 24 heures "+ debut + "\", ";
+           if(jourDeLaSemaine == true && !respectMaxJour(cptMinutesJourBureau+cptMinutesJourTeletravail)) json += " \n \" L'employé a travaillé plus de 24 heures le "+ debut + "\", ";
            if(jourDeLaSemaine == true && respectMinutesMiniBureau(cptMinutesJourBureau)) json += " \n \" L'employé n'à travaillé le nombre d'heures minimal pour le jour "+ debut + "\", ";
            if(debut == 5){debut = 1; fin = 2; jourSemaine="weekend"; jourDeLaSemaine = false;}
            debut++;
@@ -80,8 +80,7 @@ public class Probleme {
     }
     
     public boolean respectMaxJour ( int minutes ){
-        if (minutes > 1440) return false;
-        return true;
+        return minutes > 1440 ;
     }
     
     
