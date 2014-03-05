@@ -80,8 +80,7 @@ public class Probleme {
     }
     
     public boolean respectMaxJour ( int minutes ){
-        if (minutes > 1440) return false;
-        return true;
+        return minutes > 1440 ;
     }
     
     
