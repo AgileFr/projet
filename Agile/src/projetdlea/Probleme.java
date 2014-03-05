@@ -14,6 +14,7 @@ public class Probleme {
     private int cptMinutesBureau;
     private int cptMinutesTeletravail;
     private int numProjet;
+    int minutes;
     private Employe employe;
     private String json;
     
@@ -30,13 +31,16 @@ public class Probleme {
             int docCount = test.size();
             for(int j=0; j<docCount; j++){
                 JSONObject document = test.getJSONObject(j);
-                if(projetBureau(Integer.parseInt(document.getString("projet")))){
-                    ajoutMinutesBureau(Integer.parseInt(document.getString("minutes")));
-                    if(jourDeLaSemaine) cptMinutesJourBureau += Integer.parseInt(document.getString("minutes"));
+                numProjet = Integer.parseInt(root.getString("projet"));
+                minutes = Integer.parseInt(document.getString("minutes"));
+                if(projetBureau(numProjet)){
+                    ajoutMinutesBureau(minutes);
+                    if(jourDeLaSemaine) cptMinutesJourBureau += minutes;
                 }
+                else if ()
                else {
-                    ajoutMinutesTeletravail(Integer.parseInt(document.getString("minutes")));
-                    cptMinutesJourTeletravail += Integer.parseInt(document.getString("minutes"));
+                    ajoutMinutesTeletravail(minutes);
+                    cptMinutesJourTeletravail += minutes;
                 }
            }
            if(jourDeLaSemaine == true && !respectMaxJour(cptMinutesJourBureau+cptMinutesJourTeletravail)) json += " \n \" L'employé a travaillé plus de 24 heures "+ debut + "\", ";
@@ -48,6 +52,10 @@ public class Probleme {
     
     public boolean projetBureau(int numProjet){
         return (numProjet <= 900);
+    }
+    
+    public boolean projetTeletravail(int numProjet){
+        return (numProjet >900 && !congeMaladie(numProjet) && !congeFerie(numProjet));
     }
     
     public boolean congeMaladie(int numProjet){
